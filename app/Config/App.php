@@ -6,6 +6,10 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
+
+
+    // custom
+    public string $siteName = 'Sevo Blog';
     /**
      * --------------------------------------------------------------------------
      * Base Site URL
