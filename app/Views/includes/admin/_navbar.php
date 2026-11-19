@@ -7,4 +7,4 @@
     
   </div>
 </nav>
-<?php echo $this->include('includes/_offcanvas'); ?>
+<?php echo $this->include('includes/admin/_offcanvas'); ?>

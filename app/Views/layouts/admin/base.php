@@ -24,7 +24,7 @@
 
     <header>
 
-        <?php echo $this->include('includes/_navbar'); ?>
+        <?php echo $this->include('includes/admin/_navbar'); ?>
     </header>
 
     <section class="container py-5">

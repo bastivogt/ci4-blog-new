@@ -1,4 +1,4 @@
-<?php echo $this->extend('layouts/admin'); ?>
+<?php echo $this->extend('layouts/admin/base'); ?>
 
 <?php echo $this->section('title'); ?>Posts<?php echo $this->endSection(); ?>
 
