@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
 use App\Models\CategoryModel;
-use App\Entities\CategoryEntity;    
+use App\Entities\CategoryEntity;  
+use App\Controllers\BaseController;
 
 class CategoryController extends BaseController
 {
 
     protected $model;
 
-    protected function __construct()
+    public function __construct()
     {
         $this->model = new CategoryModel();
     }
@@ -26,10 +27,91 @@ class CategoryController extends BaseController
 
     public function index()
     {
-        $categories = $this->model->findAll();
-        return view('categories/index', [
+        $categories = $this->model->orderBy('name', 'ASC')->findAll();
+        return view('admin/categories/index', [
             'categories' => $categories,
             'title' => 'Categories'
-            ]);
+        ]);
+    }
+
+    public function create()
+    {
+        $category = new CategoryEntity();
+        return view('admin/categories/create', [
+            'title' => 'Create Category',
+            'category' => $category
+        ]);
+    }
+    
+    public function store()
+    {
+        $category = new CategoryEntity($this->request->getPost());
+        $id = $this->model->save($category);
+        if (!$id) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('message', ['type' => 'danger', 'text' => 'Failed to create category.'])
+                ->with('error', 'Failed to create category.');
+        }
+        return redirect()
+            ->with('message', ['type' => 'success', 'text' => 'Category created successfully.'])
+            ->route('admin.categories.index');
+    }
+
+    public function show(int $id)
+    {
+        $category = $this->getObjectOr404($id);
+        return view('admin/categories/show', [
+            'title' => $category->name,
+            'category' => $category
+        ]);
+    }
+
+    public function edit(int $id)
+    {
+        $category = $this->getObjectOr404($id);
+        return view('admin/categories/edit', [
+            'title' => 'Edit Category',
+            'category' => $category
+        ]);
+    }
+    
+    public function update(int $id)
+    {
+        $category = $this->getObjectOr404($id);
+        $category->fill($this->request->getPost());
+        if (!$this->model->save($category)) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('message', ['type' => 'danger', 'text' => 'Failed to update category.'])
+                ->with('error', 'Failed to update category.');
+        }
+        return redirect()
+            ->with('message', ['type' => 'success', 'text' => 'Category updated successfully.'])
+            ->route('admin.categories.index');
+    }
+
+    public function delete(int $id)
+    {
+        $category = $this->getObjectOr404($id);
+        return view('admin/categories/delete', [
+            'title' => 'Delete Category',
+            'category' => $category
+        ]);
+    }
+    
+    public function destroy(int $id)
+    {
+        $category = $this->getObjectOr404($id);
+        if (!$this->model->delete($category->id)) {
+            return redirect()
+                ->back()
+                ->with('message', ['type' => 'danger', 'text' => 'Failed to delete category.']);
+        }
+        return redirect()
+            ->with('message', ['type' => 'success', 'text' => 'Category deleted successfully.'])
+            ->route('admin.categories.index');
     }
 }

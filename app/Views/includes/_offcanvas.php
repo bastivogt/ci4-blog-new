@@ -29,5 +29,15 @@
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
+    <h5 class="offcanvas-title my-3" id="offcanvasNavbarLabel">Admin</h5>
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <li class="nav-item">
+            <a class="nav-link" href="<?php echo route_to('admin.categories.index'); ?>">Categories</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?php echo route_to('admin.posts.index'); ?>">Posts</a>
+        </li>
+    </ul>
+
     </div>
 </div>

@@ -27,7 +27,6 @@
                 <td><?php echo esc($post->created_at); ?></td>
                 <td><?php echo esc($post->updated_at); ?></td>
                 <td class="text-end text-nowrap">
-                    <a href="<?php echo route_to('admin.posts.show', $post->id); ?>" class="btn btn-sm btn-primary">View</a>
                     <a href="<?php echo route_to('admin.posts.edit', $post->id); ?>" class="btn btn-sm btn-warning">Edit</a>
                     <a href="<?php echo route_to('admin.posts.delete', $post->id); ?>" class="btn btn-sm btn-danger">Delete</a>
                 </td>
