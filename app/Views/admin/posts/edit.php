@@ -5,7 +5,10 @@
 <?php echo $this->section('content'); ?>
 <h1><?php echo esc($title); ?></h1>
 <?php echo form_open(route_to('admin.posts.update', $post->id), ['novalidate' => 'novalidate']); ?>
-    <?php echo $this->include('admin/posts/_form'); ?>
+    <?php echo $this->include('admin/posts/_form_post'); ?>
+    <div class="mb-3">
+        <?php echo $this->include('admin/posts/_form_categories'); ?>   
+    </div>
     <button type="submit" class="btn btn-primary">Update</button>
     <a href="<?php echo route_to('admin.posts.index'); ?>" class="btn btn-secondary">Cancel</a>
 <?php echo form_close(); ?>

@@ -14,7 +14,10 @@
         </div>
     <?php endif; ?>
     <?php echo form_open(route_to('admin.posts.store'), ['novalidate' => 'novalidate']); ?>
-        <?php echo $this->include('admin/posts/_form'); ?>
+        <?php echo $this->include('admin/posts/_form_post'); ?>
+                <div class="mb-3">
+                    <?php echo $this->include('admin/posts/_form_categories'); ?>
+                </div>
         <button type="submit" class="btn btn-primary">Create</button>
         <a href="<?php echo route_to('admin.posts.index'); ?>" class="btn btn-secondary">Cancel</a>
     <?php echo form_close(); ?>

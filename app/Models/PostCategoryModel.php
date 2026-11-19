@@ -7,7 +7,7 @@ use App\Entities\PostCategoryEntity;
 
 class PostCategoryModel extends Model
 {
-    protected $table            = 'postcategories';
+    protected $table            = 'posts_categories';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = PostCategoryEntity::class;
@@ -22,7 +22,7 @@ class PostCategoryModel extends Model
     protected array $castHandlers = [];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

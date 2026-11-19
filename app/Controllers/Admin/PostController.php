@@ -5,15 +5,21 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Entities\PostEntity;
+use App\Models\CategoryModel;
+use App\Models\PostModel;
+use App\Models\PostCategoryModel;
 
 class PostController extends BaseController
 {
 
 
     protected $postModel;
+    protected $postCategoryModel;
     public function __construct()
     {
-        $this->postModel = new \App\Models\PostModel();
+        $this->postModel = new PostModel();
+        $this->postCategoryModel = new PostCategoryModel();
+
     }
 
     protected function getPostOr404($id)
@@ -37,22 +43,41 @@ class PostController extends BaseController
     public function create()
     {
         $post = new PostEntity();
+        $categories = (new \App\Models\CategoryModel())->findAll();
         return view('admin/posts/create', [
             'post' => $post,
-            'title' => 'Create Post'
+            'categories' => $categories,
+            'title' => 'Create Post',
+            'selectedCategoryIds' => []
         ]);
     }
 
     public function store()
     {
         $data = $this->request->getPost();
+        $categories = $data['categories'] ?? [];
         $id = $this->postModel->insert($data);
+
+        // check if insert was successful
         if (!$id) {
             return redirect()->back()
             ->withInput()
             ->with('message', ['type' => 'danger', 'text' => 'Failed to create post'])
             ->with('errors', $this->postModel->errors());
         }
+        
+        // associate post with categories if any are selected
+        if ($id && !empty($categories)) {
+            foreach ($categories as $categoryId) {
+                $this->postCategoryModel->insert([
+                    'post_id' => $id,
+                    'category_id' => $categoryId
+                ]);
+            }
+        }
+
+
+
         return redirect()
             ->with('message', ['type' => 'success', 'text' => 'Post created successfully'])
             ->route('admin.posts.index');
@@ -91,9 +116,18 @@ class PostController extends BaseController
     public function edit($id)
     {
         $post = $this->getPostOr404($id);
+        $categories = (new CategoryModel())->findAll();
+
+        // get selected category IDs for the post (to pre-check checkboxes in the form)
+        $selectedCategoryIds = array_map(function($category) {
+            return $category->id;
+        }, $this->postModel->getCategories((int)$id));
+   
         return view('admin/posts/edit', [
             'post' => $post,
-            'title' => 'Edit Post'
+            'title' => $post->title,
+            'categories' => $categories,
+            'selectedCategoryIds' => $selectedCategoryIds
         ]);
     }
 
@@ -101,11 +135,33 @@ class PostController extends BaseController
     {
         $post = $this->getPostOr404($id);
         $data = $this->request->getPost();
+
+        // sanitize category IDs (convert to integers)
+        $categoryIds = array_map(
+            'intval',
+            (array) ($data['categories'] ?? [])
+        );
+        // remove duplicates and invalid IDs (non-positive integers)
+        $categoryIds = array_values(array_unique(array_filter(
+            $categoryIds,
+            static fn($categoryId) => $categoryId > 0
+        )));
+        unset($data['categories']);
+        // postmodel
         if (!$this->postModel->update($id, $data)) {
             return redirect()->back()
                 ->withInput()
                 ->with('message', ['type' => 'danger', 'text' => 'Failed to update post'])
                 ->with('errors', $this->postModel->errors());
+        }
+
+        // update posts categories (delete old and insert new)
+        $this->postCategoryModel->where('post_id', $id)->delete();
+        foreach ($categoryIds as $categoryId) {
+            $this->postCategoryModel->insert([
+                'post_id' => $id,
+                'category_id' => $categoryId
+            ]);
         }
         return redirect()
             ->with('message', ['type' => 'success', 'text' => 'Post updated successfully'])
