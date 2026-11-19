@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css'); ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX" crossorigin="anonymous">
+
+
+    <?php echo $this->renderSection('head'); ?>
+    
+    <title><?php echo config('App')->siteName; ?> Admin- <?php echo $this->renderSection('title'); ?></title>
+</head>
+<body>
+
+    <?php if(session()->has('message')): ?>
+        <section>
+            <!-- no border radius for alert -->
+            <div class="m-0 alert alert-<?php echo session('message')['type']; ?> rounded-0" role="alert">
+                <?php echo session('message')['text']; ?>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <header>
+        <nav class="navbar bg-dark" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="<?php echo route_to('admin.auth.login.form'); ?>"><?php echo config('App')->siteName; ?> Admin</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="container py-5">
+        <?php echo $this->renderSection('content'); ?>
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js" integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu" crossorigin="anonymous"></script>
+
+    <script src="<?php echo base_url('assets/js/app.js'); ?>"></script>
+    <?php echo $this->renderSection('scripts'); ?>
+</body>
+</html>

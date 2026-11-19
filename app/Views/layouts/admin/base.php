@@ -9,7 +9,7 @@
 
     <?php echo $this->renderSection('head'); ?>
     
-    <title><?php echo config('App')->siteName; ?> - <?php echo $this->renderSection('title'); ?></title>
+    <title><?php echo config('App')->siteName; ?> Admin - <?php echo $this->renderSection('title'); ?></title>
 </head>
 <body>
 

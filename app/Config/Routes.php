@@ -3,12 +3,19 @@
 use CodeIgniter\Router\RouteCollection;
 use App\Controllers\Admin\PostController;
 use App\Controllers\Admin\CategoryController;
+use App\Controllers\Admin\AuthController;
+use App\Controllers\Admin\DashboardController;    
+
 
 /** @var RouteCollection $routes */
 $routes->get('/', 'Home::index');
 
+// admin dashboard route
+$routes->group('admin/dashboard', ['filter' => 'auth'], function($routes) {
+    $routes->get('', [DashboardController::class, 'index'], ['as' => 'admin.dashboard.index']);
+});
 // posts admin group
-$routes->group('admin/posts', function($routes) {
+$routes->group('admin/posts',['filter' => 'auth'], function($routes) {
     $routes->get('', [PostController::class, 'index'], ['as' => 'admin.posts.index']);
     $routes->get('create', [PostController::class, 'create'], ['as' => 'admin.posts.create']);
     $routes->post('store', [PostController::class, 'store'], ['as' => 'admin.posts.store']);
@@ -20,7 +27,7 @@ $routes->group('admin/posts', function($routes) {
 });
 
 // categories admin group   
-$routes->group('admin/categories', function($routes) {
+$routes->group('admin/categories', ['filter' => 'auth'], function($routes) {
     $routes->get('', [CategoryController::class, 'index'], ['as' => 'admin.categories.index']);
     $routes->get('create', [CategoryController::class, 'create'], ['as' => 'admin.categories.create']);
     $routes->post('store', [CategoryController::class, 'store'], ['as' => 'admin.categories.store']);
@@ -29,4 +36,13 @@ $routes->group('admin/categories', function($routes) {
     $routes->post('(:num)/update', [CategoryController::class, 'update'], ['as' => 'admin.categories.update']);
     $routes->get('(:num)/delete', [CategoryController::class, 'delete'], ['as' => 'admin.categories.delete']);
     $routes->post('(:num)/destroy', [CategoryController::class, 'destroy'], ['as' => 'admin.categories.destroy']);
+});
+
+// auth group
+$routes->get('admin/auth/login', [AuthController::class, 'showLoginForm'], ['as' => 'admin.auth.login.form']);
+$routes->post('admin/auth/login', [AuthController::class, 'login'], ['as' => 'admin.auth.login']);
+$routes->group('admin/auth', ['filter' => 'auth'], function($routes) {
+    $routes->post('logout', [AuthController::class, 'logout'], ['as' => 'admin.auth.logout']);
+    $routes->get('register', [AuthController::class, 'showRegisterForm'], ['as' => 'admin.auth.register.form']);
+    $routes->post('register', [AuthController::class, 'register'], ['as' => 'admin.auth.register']);
 });
