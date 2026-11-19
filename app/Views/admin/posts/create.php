@@ -1,4 +1,4 @@
-<?php echo $this->extend('layouts/base'); ?>
+<?php echo $this->extend('layouts/admin'); ?>
 
 <?php echo $this->section('title'); ?>Create Post<?php echo $this->endSection(); ?>
 

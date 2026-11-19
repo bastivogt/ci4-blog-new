@@ -9,16 +9,16 @@ use App\Controllers\BaseController;
 class CategoryController extends BaseController
 {
 
-    protected $model;
+    protected $categoryModel;
 
     public function __construct()
     {
-        $this->model = new CategoryModel();
+        $this->categoryModel = new CategoryModel();
     }
 
-    protected function getObjectOr404(int $id): CategoryEntity
+    protected function getCategoryOr404(int $id): CategoryEntity
     {
-        $category = $this->model->find($id);
+        $category = $this->categoryModel->find($id);
         if (!$category) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Category with ID $id not found");
         }
@@ -27,7 +27,7 @@ class CategoryController extends BaseController
 
     public function index()
     {
-        $categories = $this->model->orderBy('name', 'ASC')->findAll();
+        $categories = $this->categoryModel->orderBy('name', 'ASC')->findAll();
         return view('admin/categories/index', [
             'categories' => $categories,
             'title' => 'Categories'
@@ -46,7 +46,7 @@ class CategoryController extends BaseController
     public function store()
     {
         $category = new CategoryEntity($this->request->getPost());
-        $id = $this->model->save($category);
+        $id = $this->categoryModel->save($category);
         if (!$id) {
             return redirect()
                 ->back()
@@ -61,7 +61,7 @@ class CategoryController extends BaseController
 
     public function show(int $id)
     {
-        $category = $this->getObjectOr404($id);
+        $category = $this->getCategoryOr404($id);
         return view('admin/categories/show', [
             'title' => $category->name,
             'category' => $category
@@ -70,7 +70,7 @@ class CategoryController extends BaseController
 
     public function edit(int $id)
     {
-        $category = $this->getObjectOr404($id);
+        $category = $this->getCategoryOr404($id);
         return view('admin/categories/edit', [
             'title' => 'Edit Category',
             'category' => $category
@@ -79,9 +79,9 @@ class CategoryController extends BaseController
     
     public function update(int $id)
     {
-        $category = $this->getObjectOr404($id);
+        $category = $this->getCategoryOr404($id);
         $category->fill($this->request->getPost());
-        if (!$this->model->save($category)) {
+        if (!$this->categoryModel->save($category)) {
             return redirect()
                 ->back()
                 ->withInput()
@@ -95,7 +95,7 @@ class CategoryController extends BaseController
 
     public function delete(int $id)
     {
-        $category = $this->getObjectOr404($id);
+        $category = $this->getCategoryOr404($id);
         return view('admin/categories/delete', [
             'title' => 'Delete Category',
             'category' => $category
@@ -104,8 +104,8 @@ class CategoryController extends BaseController
     
     public function destroy(int $id)
     {
-        $category = $this->getObjectOr404($id);
-        if (!$this->model->delete($category->id)) {
+        $category = $this->getCategoryOr404($id);
+        if (!$this->categoryModel->delete($category->id)) {
             return redirect()
                 ->back()
                 ->with('message', ['type' => 'danger', 'text' => 'Failed to delete category.']);

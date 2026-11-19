@@ -1,5 +1,5 @@
 <?php echo $this->extend('layouts/base'); ?>
-
+    
 <?php echo $this->section('title'); ?><?php echo esc($title); ?><?php echo $this->endSection(); ?>
 
 <?php echo $this->section('content'); ?>
