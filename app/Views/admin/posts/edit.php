@@ -6,6 +6,7 @@
 <h1><?php echo esc($title); ?></h1>
 <?php echo form_open(route_to('admin.posts.update', $post->id), ['novalidate' => 'novalidate']); ?>
     <?php echo $this->include('admin/posts/_form_post'); ?>
+    
     <div class="mb-3">
         <?php echo $this->include('admin/posts/_form_categories'); ?>   
     </div>
