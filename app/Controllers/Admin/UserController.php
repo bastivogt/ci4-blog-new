@@ -28,6 +28,7 @@ class UserController extends BaseController
         return view('admin/users/index', [
             'title' => 'Users',
             'users' => $this->userModel->findAll()
+            //'users' => $this->userModel->where('id !=', session()->get('current_user')['id'])->findAll()
         ]);
     }
 

@@ -19,6 +19,13 @@
                     <a class="nav-link" href="<?php echo route_to('admin.users.index'); ?>">Users</a>
                 </li>
              <?php endif; ?>
+            <h5 class="mt-3">Account</h5>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo route_to('admin.account.edit'); ?>">Edit Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo route_to('admin.account.editPassword'); ?>">Change Password</a>
+            </li>
             <hr>
             
             <li class="nav-item">

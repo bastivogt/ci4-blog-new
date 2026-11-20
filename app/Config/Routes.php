@@ -6,6 +6,8 @@ use App\Controllers\Admin\CategoryController;
 use App\Controllers\Admin\AuthController;
 use App\Controllers\Admin\DashboardController;    
 use App\Controllers\Admin\UserController;
+use App\Controllers\Admin\AccountController;
+
 
 
 /** @var RouteCollection $routes */
@@ -54,14 +56,21 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
         $routes->post('register', [AuthController::class, 'register'], ['as' => 'admin.auth.register']);
     });
 
-    $routes->group('users', function($routes) {
-        $routes->get('', [UserController::class, 'index'], ['as' => 'admin.users.index', 'filter' => 'admin']);
+    $routes->group('users',['filter' => 'admin'], function($routes) {
+        $routes->get('', [UserController::class, 'index'], ['as' => 'admin.users.index']);
         $routes->get('create', [UserController::class, 'create'], ['as' => 'admin.users.create']);
         $routes->post('store', [UserController::class, 'store'], ['as' => 'admin.users.store']);
         $routes->get('(:num)/edit', [UserController::class, 'edit'], ['as' => 'admin.users.edit']);
         $routes->post('(:num)/update', [UserController::class, 'update'], ['as' => 'admin.users.update']);
         $routes->get('(:num)/delete', [UserController::class, 'delete'], ['as' => 'admin.users.delete']);
         $routes->post('(:num)/destroy', [UserController::class, 'destroy'], ['as' => 'admin.users.destroy']);   
+    });
+
+    $routes->group('account', function($routes) {
+        $routes->get('edit', [AccountController::class, 'edit'], ['as' => 'admin.account.edit']);
+        $routes->post('update', [AccountController::class, 'update'], ['as' => 'admin.account.update']);
+        $routes->get('change-password', [AccountController::class, 'editPassword'], ['as' => 'admin.account.editPassword']);
+        $routes->post('change-password', [AccountController::class, 'updatePassword'], ['as' => 'admin.account.updatePassword']);
     });
 
 
