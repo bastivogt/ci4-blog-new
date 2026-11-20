@@ -6,6 +6,11 @@ use CodeIgniter\Entity\Entity;
 
 class PostEntity extends Entity
 {
+    protected $attributes = [
+        'is_featured'    => false,
+        'is_published'   => true,
+        'allow_comments' => true,
+    ];
     protected $datamap = [];
     protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
     protected $casts   = [];

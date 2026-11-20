@@ -15,6 +15,7 @@
                     <th scope="col">Excerpt</th>
                     <th scope="col">Created at</th>
                     <th scope="col">Updated at</th>
+                    <th scope="col">Published</th>
                     <th scope="col" class="text-end">Actions</th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                 <td><?php echo esc($post->excerpt); ?></td>
                 <td><?php echo esc($post->created_at); ?></td>
                 <td><?php echo esc($post->updated_at); ?></td>
+                <td><?php echo $post->is_published ? 'Yes' : 'No'; ?></td>
                 <td class="text-end text-nowrap">
                     <a href="<?php echo route_to('admin.posts.edit', $post->id); ?>" class="btn btn-sm btn-warning">Edit</a>
                     <a href="<?php echo route_to('admin.posts.delete', $post->id); ?>" class="btn btn-sm btn-danger">Delete</a>

@@ -22,7 +22,8 @@ class PostModel extends Model
         'updated_at', 
         'allow_comments', 
         'is_featured',
-        'user_id'
+        'user_id',
+        'is_published'
     ];
 
     protected bool $allowEmptyInserts = false;

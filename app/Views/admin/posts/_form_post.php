@@ -8,10 +8,17 @@
 </div>
 <div class="mb-3">
     <label for="is_featured" class="form-label">Is Featured</label>
+    <input type="hidden" name="is_featured" value="0">
     <input type="checkbox" id="is_featured" name="is_featured" value="1" <?php echo set_checkbox('is_featured', '1', isset($post) && $post->is_featured); ?>>
 </div>
 <div class="mb-3">
+    <label for="is_published" class="form-label">Is Published</label>
+    <input type="hidden" name="is_published" value="0">
+    <input type="checkbox" id="is_published" name="is_published" value="1" <?php echo set_checkbox('is_published', '1', isset($post) && $post->is_published); ?>>
+</div>
+<div class="mb-3">
     <label for="allow_comments" class="form-label">Allow Comments</label>
+    <input type="hidden" name="allow_comments" value="0">
     <input type="checkbox" id="allow_comments" name="allow_comments" value="1" <?php echo set_checkbox('allow_comments', '1', isset($post) && $post->allow_comments); ?>>
 </div>
 
