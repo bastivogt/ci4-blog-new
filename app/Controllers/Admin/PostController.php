@@ -8,6 +8,7 @@ use App\Entities\PostEntity;
 use App\Models\CategoryModel;
 use App\Models\PostModel;
 use App\Models\PostCategoryModel;
+use App\Models\UserModel;
 
 class PostController extends BaseController
 {
@@ -19,6 +20,7 @@ class PostController extends BaseController
     {
         $this->postModel = new PostModel();
         $this->postCategoryModel = new PostCategoryModel();
+        $this->userModel = new UserModel();
 
     }
 
@@ -43,19 +45,26 @@ class PostController extends BaseController
     public function create()
     {
         $post = new PostEntity();
+        $users = $this->userModel->findAll();
+ 
         $categories = (new \App\Models\CategoryModel())->findAll();
         return view('admin/posts/create', [
             'post' => $post,
             'categories' => $categories,
             'title' => 'Create Post',
-            'selectedCategoryIds' => []
+            'selectedCategoryIds' => [],
+            'users' => $users
         ]);
     }
 
     public function store()
     {
         $data = $this->request->getPost();
+        if(!session()->get('current_user')['is_admin']) {
+            $data['user_id'] = session()->get('current_user')['id']; // Replace 1 with the actual user ID of the logged-in user
+        }
         $categories = $data['categories'] ?? [];
+        
         $id = $this->postModel->insert($data);
 
         // check if insert was successful
@@ -117,6 +126,7 @@ class PostController extends BaseController
     {
         $post = $this->getPostOr404($id);
         $categories = (new CategoryModel())->findAll();
+        $users = $this->userModel->findAll();
 
         // get selected category IDs for the post (to pre-check checkboxes in the form)
         $selectedCategoryIds = array_map(function($category) {
@@ -127,7 +137,8 @@ class PostController extends BaseController
             'post' => $post,
             'title' => $post->title,
             'categories' => $categories,
-            'selectedCategoryIds' => $selectedCategoryIds
+            'selectedCategoryIds' => $selectedCategoryIds,
+            'users' => $users
         ]);
     }
 
@@ -135,6 +146,7 @@ class PostController extends BaseController
     {
         $post = $this->getPostOr404($id);
         $data = $this->request->getPost();
+
 
         // sanitize category IDs (convert to integers)
         $categoryIds = array_map(

@@ -10,3 +10,21 @@
     <label for="is_featured" class="form-label">Is Featured</label>
     <input type="checkbox" id="is_featured" name="is_featured" value="1" <?php echo set_checkbox('is_featured', '1', isset($post) && $post->is_featured); ?>>
 </div>
+<div class="mb-3">
+    <label for="allow_comments" class="form-label">Allow Comments</label>
+    <input type="checkbox" id="allow_comments" name="allow_comments" value="1" <?php echo set_checkbox('allow_comments', '1', isset($post) && $post->allow_comments); ?>>
+</div>
+
+<?php if (isset($users) && session()->get('current_user')['is_admin']): ?>
+<div class="mb-3">
+    <label for="user_id" class="form-label">Author</label>
+    <select class="form-select" id="user_id" name="user_id" required>
+        <?php foreach ($users as $user): ?>
+            <option value="<?php echo esc($user->id); ?>" <?php echo set_select('user_id', $user->id, isset($post) && $post->user_id == $user->id); ?>>
+                <?php echo esc($user->username); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+<?php endif; ?>
+
