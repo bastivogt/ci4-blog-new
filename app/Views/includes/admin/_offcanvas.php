@@ -12,10 +12,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo route_to('admin.posts.index'); ?>">Posts</a>
             </li>
-
+            <hr>
+            
             <li class="nav-item">
                 <?php echo form_open(route_to('admin.auth.logout')); ?>
-                    <button type="submit" class="nav-link btn btn-link" style="padding: 0; border: none; background: none;">Logout</button>
+                    <button type="submit" class="btn btn-primary">Logout</button>
                 <?php echo form_close(); ?>
             </li>
         </ul>
