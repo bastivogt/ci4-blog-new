@@ -62,18 +62,23 @@ class CategoryController extends BaseController
     public function show(int $id)
     {
         $category = $this->getCategoryOr404($id);
+        $posts = $this->categoryModel->getPosts($category->id);
         return view('admin/categories/show', [
             'title' => $category->name,
-            'category' => $category
+            'category' => $category,
+            'posts' => $posts
         ]);
     }
 
     public function edit(int $id)
     {
         $category = $this->getCategoryOr404($id);
+        $posts = $this->categoryModel->getPosts($category->id);
+
         return view('admin/categories/edit', [
             'title' => 'Edit Category',
-            'category' => $category
+            'category' => $category,
+            'posts' => $posts
         ]);
     }
     

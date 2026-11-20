@@ -5,6 +5,8 @@ namespace App\Models;
 use CodeIgniter\Model;
 use App\Entities\CategoryEntity;
 
+use App\Models\PostCategoryModel;
+
 class CategoryModel extends Model
 {
     protected $table            = 'categories';
@@ -46,4 +48,17 @@ class CategoryModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    public function getPosts(int $categoryId)
+    {
+        return (new PostModel())
+            ->select('posts.*')
+            ->join(
+                'posts_categories',
+                'posts_categories.post_id = posts.id'
+            )
+            ->where('posts_categories.category_id', $categoryId)
+            ->findAll();
+    }
 }

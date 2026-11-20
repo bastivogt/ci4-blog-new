@@ -14,7 +14,7 @@ class PostModel extends Model
     protected $returnType       = PostEntity::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['title', 'body', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['title', 'body', 'is_featured', 'created_at', 'updated_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
