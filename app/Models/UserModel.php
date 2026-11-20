@@ -13,7 +13,15 @@ class UserModel extends Model
     protected $returnType       = UserEntity::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'email',
+        'password',
+        'first_name',
+        'last_name',
+        'is_admin',
+        'is_active',
+        'username'
+    ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -30,10 +38,12 @@ class UserModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'email'    => 'required|valid_email|is_unique[users.email]',
-        'password' => 'required|min_length[8]',
-        'first_name' => 'required|alpha_space|min_length[2]',
-        'last_name'  => 'required|alpha_space|min_length[2]'
+        'id'         => 'permit_empty|is_natural_no_zero',
+        'email'      => 'required|valid_email|is_unique[users.email,id,{id}]',
+        'password'   => 'permit_empty|min_length[8]',
+        'first_name' => 'required|regex_match[/\A[\p{L} ]+\z/u]|min_length[2]',
+        'last_name'  => 'required|regex_match[/\A[\p{L} ]+\z/u]|min_length[2]',
+        'username'   => 'required|alpha_numeric|min_length[3]|is_unique[users.username,id,{id}]',
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;

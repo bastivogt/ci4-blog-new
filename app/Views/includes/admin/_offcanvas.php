@@ -1,6 +1,8 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigation</h5>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+            Hello, <?php echo session()->get('current_user')['first_name']; ?>!
+        </h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -12,6 +14,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo route_to('admin.posts.index'); ?>">Posts</a>
             </li>
+            <?php if (session()->get('current_user')['is_admin'] == 1): ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo route_to('admin.users.index'); ?>">Users</a>
+                </li>
+             <?php endif; ?>
             <hr>
             
             <li class="nav-item">
@@ -19,6 +26,7 @@
                     <button type="submit" class="btn btn-primary">Logout</button>
                 <?php echo form_close(); ?>
             </li>
+           
         </ul>
 
     </div>

@@ -35,6 +35,7 @@ class PostController extends BaseController
 
     public function index()
     {
+        //dd(session()->get('current_user'));
         $posts = $this->postModel->orderBy('created_at', 'DESC')->findAll();
         return view('admin/posts/index', [
             'posts' => $posts,

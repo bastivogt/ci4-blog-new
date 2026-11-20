@@ -1,6 +1,8 @@
 <?php echo $this->extend('layouts/admin/base'); ?>
 
-<?php echo $this->section('title'); ?>Posts<?php echo $this->endSection(); ?>
+<?php echo $this->section('title'); ?>
+    <?php echo esc($title); ?>
+<?php echo $this->endSection(); ?>
 
 <?php echo $this->section('content'); ?>
 <h1><?php echo esc($title); ?></h1>
