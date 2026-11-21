@@ -16,7 +16,8 @@ $routes->get('/', 'Home::index');
 
 //$routes->addRedirect('/admin', 'admin/auth/login');
 $routes->get('admin', function() {
-    return redirect()->route('admin.auth.login.form');
+    // 301 redirect to login form for admin
+    return redirect()->route('admin.auth.login.form', [], 301);
 });
 
 $routes->group('admin', ['filter' => 'auth'], function($routes) {
