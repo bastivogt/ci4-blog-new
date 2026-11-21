@@ -13,7 +13,13 @@ class CommentModel extends Model
     protected $returnType       = CommentEntity::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['post_id', 'author', 'content', 'created_at', 'updated_at'];
+    protected $allowedFields    = [
+        'post_id', 
+        'author', 
+        'content', 
+        'created_at', 
+        'updated_at'
+    ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -48,4 +54,24 @@ class CommentModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    public function getCommentsWithPostTitle()
+    {
+        return $this->builder()
+            ->select('comments.*, posts.title as post_title')
+            ->join('posts', 'posts.id = comments.post_id')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getCommentWithPostTitle(int $id)
+    {
+        return $this->builder()
+            ->select('comments.*, posts.title as post_title')
+            ->join('posts', 'posts.id = comments.post_id')
+            ->where('comments.id', $id)
+            ->get()
+            ->getRowArray();
+    }
 }

@@ -94,4 +94,19 @@ class PostModel extends Model
         }
         return '';
     }
+
+    public function getComments(int $postId): array
+    {
+        $rows = $this->db->table('comments')
+            ->where('post_id', $postId)
+            ->get()
+            ->getResultArray();
+
+        return array_map(
+            static function (array $row): CommentEntity {
+                return new CommentEntity($row);
+            },
+            $rows
+        );
+    }
 }

@@ -16,12 +16,12 @@
 </div>
 <div class="mb-3">
     <input type="hidden" name="is_admin" value="0">
-    <input type="checkbox" class="form-check-input" id="is_admin" name="is_admin" value="1" <?php echo set_checkbox('is_admin', '1', $user->is_admin); ?>>
+    <input type="checkbox" class="form-check-input" id="is_admin" name="is_admin" value="1" <?php echo set_checkbox('is_admin', '1', $user->is_admin ?? 0); ?>>
     <label class="form-check-label" for="is_admin">Admin</label>
 </div>
 <div class="mb-3">
     <input type="hidden" name="is_active" value="0">
-    <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1" <?php echo set_checkbox('is_active', '1', $user->is_active); ?>>
+    <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1" <?php echo set_checkbox('is_active', '1', $user->is_active ?? 1); ?>>
     <label class="form-check-label" for="is_active">Active</label>
 </div>
 <div class="mb-3">

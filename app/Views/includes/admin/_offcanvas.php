@@ -14,6 +14,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo route_to('admin.posts.index'); ?>">Posts</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo route_to('admin.comments.index'); ?>">Comments</a>
+            </li>
             <?php if (session()->get('current_user')['is_admin'] == 1): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo route_to('admin.users.index'); ?>">Users</a>

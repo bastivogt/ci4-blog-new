@@ -1,6 +1,9 @@
-<?php $this->extend('layouts/admin/base'); ?>
-<?php $this->section('content'); ?>
-<h1><?= esc($title) ?></h1>
+<?php echo $this->extend('layouts/admin/base'); ?>
+<?php echo $this->section('title'); ?>
+    <?php echo esc($title); ?>
+<?php echo $this->endSection(); ?>
+<?php echo $this->section('content'); ?>
+<h1><?php echo esc($title); ?></h1>
 <?php echo form_open(route_to('admin.account.updatePassword')); ?>
     <div class="mb-3">
         <label for="current_password" class="form-label">Current Password</label>
@@ -16,4 +19,4 @@
     </div>
     <button type="submit" class="btn btn-primary">Change Password</button>
 <?php echo form_close(); ?>
-<?php $this->endSection(); ?>
+<?php echo $this->endSection(); ?>

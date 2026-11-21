@@ -7,6 +7,7 @@ use App\Controllers\Admin\AuthController;
 use App\Controllers\Admin\DashboardController;    
 use App\Controllers\Admin\UserController;
 use App\Controllers\Admin\AccountController;
+use App\Controllers\Admin\CommentController;    
 
 
 
@@ -46,6 +47,18 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
         $routes->post('(:num)/update', [CategoryController::class, 'update'], ['as' => 'admin.categories.update']);
         $routes->get('(:num)/delete', [CategoryController::class, 'delete'], ['as' => 'admin.categories.delete']);
         $routes->post('(:num)/destroy', [CategoryController::class, 'destroy'], ['as' => 'admin.categories.destroy']);
+    });
+
+    // comments admin group   
+    $routes->group('comments', function($routes) {
+        $routes->get('', [CommentController::class, 'index'], ['as' => 'admin.comments.index']);
+        $routes->get('create', [CommentController::class, 'create'], ['as' => 'admin.comments.create']);
+        $routes->post('store', [CommentController::class, 'store'], ['as' => 'admin.comments.store']);
+        $routes->get('(:num)', [CommentController::class, 'show'], ['as' => 'admin.comments.show']);
+        $routes->get('(:num)/edit', [CommentController::class, 'edit'], ['as' => 'admin.comments.edit']);
+        $routes->post('(:num)/update', [CommentController::class, 'update'], ['as' => 'admin.comments.update']);
+        $routes->get('(:num)/delete', [CommentController::class, 'delete'], ['as' => 'admin.comments.delete']);
+        $routes->post('(:num)/destroy', [CommentController::class, 'destroy'], ['as' => 'admin.comments.destroy']);
     });
 
 

@@ -16,5 +16,6 @@
 <?php echo form_open(route_to('admin.users.store')); ?>
     <?php echo $this->include('admin/users/_form'); ?>
     <button type="submit" class="btn btn-primary">Create User</button>
+    <a href="<?php echo route_to('admin.users.index'); ?>" class="btn btn-secondary">Cancel</a>
 <?php echo form_close(); ?>
 <?php echo $this->endSection(); ?>

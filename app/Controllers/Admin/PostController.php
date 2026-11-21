@@ -136,7 +136,7 @@ class PostController extends BaseController
    
         return view('admin/posts/edit', [
             'post' => $post,
-            'title' => $post->title,
+            'title' => 'Edit Post',
             'categories' => $categories,
             'selectedCategoryIds' => $selectedCategoryIds,
             'users' => $users

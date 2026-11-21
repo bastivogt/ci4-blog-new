@@ -1,7 +1,12 @@
 <?= $this->extend('layouts/admin/base') ?>
+
+<?= $this->section('title') ?>
+    <?= esc($title) ?>
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 
-<h1>Delete User</h1>
+<h1><?= esc($title) ?></h1>
 
 <p>Are you sure you want to delete this user?</p>
 
