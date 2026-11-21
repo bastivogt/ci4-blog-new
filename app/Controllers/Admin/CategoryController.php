@@ -37,6 +37,7 @@ class CategoryController extends BaseController
     public function create()
     {
         $category = new CategoryEntity();
+        
         return view('admin/categories/create', [
             'title' => 'Create Category',
             'category' => $category

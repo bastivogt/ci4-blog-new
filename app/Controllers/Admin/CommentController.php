@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Entities\CommentEntity;
 
 class CommentController extends BaseController
 {
@@ -61,7 +62,8 @@ class CommentController extends BaseController
     public function store()
     {
         $data = $this->request->getPost();
-        $id = $this->commentModel->insert($data);
+        $comment = new CommentEntity($data);
+        $id = $this->commentModel->insert($comment);
         if (!$id) {
             return redirect()
                 ->back()
