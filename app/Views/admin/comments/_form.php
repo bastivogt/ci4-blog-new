@@ -15,3 +15,8 @@
         <label for="content" class="form-label">Content</label>
         <textarea name="content" id="content" class="form-control"><?= set_value('content', $comment['content'] ?? '') ?></textarea>
     </div>
+    <div class="mb-3">
+        <input type="hidden" name="is_published" value="0">
+        <input type="checkbox" name="is_published" id="is_published" value="1" <?= set_checkbox('is_published', '1', isset($comment['is_published']) && $comment['is_published'] == 1) ?>>
+        <label for="is_published" class="form-label">Is Published</label>
+    </div>

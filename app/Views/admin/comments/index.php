@@ -17,6 +17,7 @@
                     <th scope="col">Post Title</th>
                     <th scope="col">Content</th>
                     <th scope="col">Author</th>
+                    <th scope="col">Is Published</th>
                     <th scope="col">Created at</th>
                     <th scope="col">Updated at</th>
                     <th scope="col" class="text-end">Actions</th>
@@ -30,6 +31,7 @@
                 <td><?php echo esc($comment['post_title']); ?></td>
                 <td><?php echo esc($comment['content']); ?></td>
                 <td><?php echo esc($comment['author']); ?></td>
+                <td><?php echo esc($comment['is_published']) ? 'Yes' : 'No'; ?></td>
                 <td><?php echo esc($comment['created_at']); ?></td>
                 <td><?php echo esc($comment['updated_at']); ?></td>
                 <td class="text-end text-nowrap">

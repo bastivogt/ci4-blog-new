@@ -18,7 +18,8 @@ class CommentModel extends Model
         'author', 
         'content', 
         'created_at', 
-        'updated_at'
+        'updated_at',
+        'is_published'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -39,6 +40,7 @@ class CommentModel extends Model
         'post_id' => 'required|integer',
         'author' => 'required|string|max_length[255]',
         'content' => 'required|string|max_length[1000]',
+        'is_published' => 'required|integer|in_list[0,1]',
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
