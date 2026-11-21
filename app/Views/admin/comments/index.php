@@ -13,8 +13,8 @@
             <thead class="table-dark">
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Post Title</th>
                     <th scope="col">Post ID</th>
+                    <th scope="col">Post Title</th>
                     <th scope="col">Content</th>
                     <th scope="col">Author</th>
                     <th scope="col">Created at</th>
@@ -26,8 +26,8 @@
                 <?php foreach ($comments as $index => $comment) : ?>
                 <tr>
                 <td><?php echo esc($comment['id']); ?></td>
-                <td><?php echo esc($comment['post_title']); ?></td>
                 <td><?php echo esc($comment['post_id']); ?></td>
+                <td><?php echo esc($comment['post_title']); ?></td>
                 <td><?php echo esc($comment['content']); ?></td>
                 <td><?php echo esc($comment['author']); ?></td>
                 <td><?php echo esc($comment['created_at']); ?></td>

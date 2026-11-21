@@ -38,7 +38,7 @@ class CommentModel extends Model
     protected $validationRules      = [
         'post_id' => 'required|integer',
         'author' => 'required|string|max_length[255]',
-        'content' => 'required|string',
+        'content' => 'required|string|max_length[1000]',
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
